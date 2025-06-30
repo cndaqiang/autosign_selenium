@@ -1,0 +1,3 @@
+edge:
+  driver_path: D:\GreenSoft\edgedriver_win64\msedgedriver.exe
+  user_data_dir: D:\selenium_profiles\edge_profile1

@@ -1,3 +1,4 @@
 config.yml
 sign_result.png
 __pycache__/
+*.txt

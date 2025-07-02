@@ -69,7 +69,7 @@ try:
     time.sleep(5)
 
     # 截图保存当前页面，用于后续人工核对
-    driver.save_screenshot("sign_result.png")
+    driver.save_screenshot("sign_result.wangzhe.png")
     print("✅ 截图已保存到 sign_result.png，请检查是否兑换成功。")
 
 finally:

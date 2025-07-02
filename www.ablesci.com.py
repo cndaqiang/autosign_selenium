@@ -110,7 +110,7 @@ try:
     time.sleep(5)
 
     # 截图保存当前页面
-    driver.save_screenshot("sign_result.png")
+    driver.save_screenshot("sign_result.ablesci.png")
     print("截图已保存到 sign_result.png，请检查是否签到成功。")
 
 finally:

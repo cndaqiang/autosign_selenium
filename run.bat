@@ -1,0 +1,1 @@
+%USERPROFILE%\miniconda3\python.exe -u www.ablesci.com.py >> log.txt 2>&1

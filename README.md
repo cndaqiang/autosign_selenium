@@ -1,20 +1,21 @@
 # autosign_selenium
 
-一个基于 Selenium 的自动化签到脚本，用于王者荣耀体验服每日签到/兑换奖励。此项目后续可扩展支持其他网站的签到。
+一个基于 Selenium 的自动化签到脚本，用于在网页上进行每日签到/兑换奖励。
 
 ## 功能简介
 
 - 在 Edge 浏览器中模拟登录、访问签到页面。
-- 根据按钮 `value` 自动点击指定奖励。
+- 根据按钮自动点击指定奖励。
 - 自动保存签到结果截图。
 - 通过配置文件管理 WebDriver 路径和浏览器数据目录。
 - 支持：
   - 有头模式（带GUI，可手动登录调试）
   - 无头模式（自动化运行，完全后台执行）
 
-本项目由 OpenAI 的 ChatGPT 协助撰写和完善。
-
 ## 使用方法
+0. 安装 [Microsoft Edge WebDriver](https://developer.microsoft.com/microsoft-edge/tools/webdriver/)，版本要和你本地 Edge 浏览器版本一致。
+
+
 
 1. 安装 Python 和依赖：
 ```bash
@@ -33,13 +34,13 @@
    * 自动化无头运行：
 
      ```
-     python script.py
+     python www.ablesci.com.py
      ```
     
-   * 带GUI调试（需要手动登录）：
+   * 带GUI调试（需要手动登录以保存cookies）：
 
      ```
-     python script.py --gui
+     python www.ablesci.com.py --gui
      ```
 
 5. 查看 `sign_result.png` 截图文件以确认签到结果。
@@ -47,7 +48,8 @@
 ## 项目结构
 
 ```
-├── script.py               主程序文件
+├── edge.py                 打开edge浏览器进行登录调试
+├── www.ablesci.com.py      www.ablesci.com签到
 ├── config_example.yml      示例配置文件
 ├── .gitignore              忽略 config.yml 和中间产物
 └── README.md               项目说明文件

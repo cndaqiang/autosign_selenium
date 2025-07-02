@@ -48,12 +48,19 @@
 ## 项目结构
 
 ```
-├── edge.py                 打开edge浏览器进行登录调试
+├── tool_xxx.py             相关工具
+├── check_timestamp.py      用于确定脚本的执行间隔
 ├── www.ablesci.com.py      www.ablesci.com签到
 ├── config_example.yml      示例配置文件
 ├── .gitignore              忽略 config.yml 和中间产物
 └── README.md               项目说明文件
 ```
+
+## 在服务器上使用
+
+* 在有GUI的电脑上`python .\tool_build_cooikes.py`生成网站的cooikes
+* 在其他服务器上`python .\tool_build_cooikes.py`导入cooikes
+* 执行相关的脚本或者自动化任务`python www.ablesci.com.py`
 
 
 ---

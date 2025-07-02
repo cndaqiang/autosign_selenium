@@ -8,7 +8,7 @@ from selenium.webdriver.edge.options import Options
 import check_timestamp
 
 # ======================== 0. 初始化命令 ========================
-check_timestamp.check(run_interval_hours=12, run_interval_days=15)
+check_timestamp.check(run_interval_hours=0, run_interval_days=15)
 
 # ======================== 1. 读取配置 ========================
 # 配置文件 config.yml 示例：
@@ -50,7 +50,7 @@ driver = webdriver.Edge(service=service, options=edge_options)
 
 try:
     # ======================== 4. 打开目标页面 ========================
-    driver.get("https://www.ablesci.com/")
+    driver.get("https://www.tjupt.org/attendance.php")
 
     # 如果是有头模式，需要手动扫码/登录
     if not headless:
@@ -75,35 +75,35 @@ try:
     # find_elements 返回一个列表（即使没找到也不会报错，只是返回空列表）
     # find_element 如果没找到则抛出异常
 
-    sign_buttons = driver.find_elements(By.CSS_SELECTOR, "button.btn-sign")
+    labels = driver.find_elements(By.CSS_SELECTOR, "label")
     # sign_buttons = driver.find_elements(By.CSS_SELECTOR, "button.btn-sign, a.btn-sign, input.btn-sign")
     # 说明：这里的 CSS 选择器支持同时匹配 <button>、<a>、<input> 中 class=btn-sign 的元素
 
-    found = False
-    for btn in sign_buttons:
-        # 获取按钮文本内容并去掉首尾空白
-        btn_text = btn.text.strip()
-        print(f"检查按钮内容: {btn_text}")
+    radio_count = 0
+    third_radio = None
 
-        # 当页面含有多个 btn-sign 时，可使用：
-        # - btn.get_attribute("id") 获取元素 id
-        # - btn.get_attribute("class") 获取元素类名
-        # - btn.text 获取元素可见文本
-        #
-        # 例如：
-        # if btn.get_attribute("id") == "sign-btn-1":
-        #     btn.click()
+    for label in labels:
+        try:
+            radio_input = label.find_element(By.TAG_NAME, "input")
+            radio_count += 1
+            if radio_count == 3:
+                third_radio = radio_input
+                third_label_text = label.text.strip()
+                print(f"找到第3个有效选项：{third_label_text}")
+                radio_input.click()
+                break
+        except:
+            # 该 label 下没有 input，跳过
+            continue
 
-        # 这里用文本内容进行匹配，确保是正确的签到按钮
-        if "今日打卡签到" in btn_text:
-            print("确认是需要的签到按钮，正在点击...")
-            btn.click()
-            print("已点击签到按钮！")
-            found = True
-            break  # 找到后立即退出循环
-
-    if not found:
-        print("没有找到符合条件的签到按钮，可能今天已签到或页面状态异常。")
+    if third_radio:
+        # 点击提交按钮
+        submit_button = driver.find_element(By.CSS_SELECTOR, "input[type='submit']")
+        submit_button.click()
+        print("已选中并提交签到！")
+    else:
+        print(f"没有找到第3个有效选项，页面中只找到 {radio_count} 个有效选项。")
+    
 
     # ======================== 7. 等待响应并截图 ========================
     # 等待几秒让签到结果返回，特别是有头模式下可观察
